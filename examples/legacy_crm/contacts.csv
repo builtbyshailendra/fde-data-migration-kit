@@ -1,0 +1,31 @@
+Contact ID;Account ID;Full Name;E-mail;Phone;Title;Opt In;Last Modified
+1001;ACC-0001;Bram E. Hollister;bram.hollister@corvane-corp.com;(415) 555-0132 x101;Head of Procurement;Y;12/01/2024 09:15
+1002;ACC-0001;Jane Doe;Jane.Doe@corvane-corp.com;415-555-0133;CFO;N;03/02/2024 14:02
+1003;ACC-0019;jane doe; jane.doe@CORVANE-CORP.com ;(415) 555-0133;Chief Financial Officer;Y;18/06/2024 11:40
+1004;ACC-0002;Idris Pendleby;idris@brackwell.co.uk;+44 20 7946 0959;CEO;Y;05/01/2024 08:00
+1005;ACC-0003;Walt Ostrander;walt.ostrander@velquist.com;415.555.0198;VP Operations;N;22/11/2023 17:30
+1006;ACC-0003;Neil Ashdown;neil.ashdown[at]velquist.com;415.555.0197;Engineer;N;22/11/2023 17:31
+1007;ACC-0004;José Müller;jose.mueller@lindqvar-health.de;+49 30 555821;Einkaufsleiter;Y;14/03/2024 10:10
+1008;ACC-0005;Matt Ravensby;matt@dravenmoorlogistics.com;(212) 555-0147;Owner;Y;01/04/2024 12:00
+1009;ACC-0028;Matthew Ravensby;MATT@dravenmoorlogistics.com;212 555 0147;Owner;N;15/01/2023 12:00
+1010;ACC-0007;Tomas Brill;tomas.brill@marrowbyfoods.com;N/A;Buyer;;09/09/2023 09:09
+1011;ACC-0008;Corin Vasquez;corin@ovalyn.com;650-555-0101;CEO;Y;30/05/2024 16:45
+1012;ACC-0009;Ines Albright;ines@kestrane.com;(718) 555-0124;President;Y;02/02/2024 13:13
+1013;ACC-0999;Ghost Contact;ghost@example.com;(000) 555-0000;Unknown;N;01/01/2024 00:00
+1014;ACC-0011;Yusuf Aldane;yusuf.aldane@halvorn.io;(408) 555-0167;Director of R&D;Y;29/08/2024 02:14
+1015;ACC-0012;Callum Brierly;callum@coralline-air.com.au;+61 2 5550 4001;Fleet Manager;Y;22/09/2024 08:15
+1016;ACC-0015;Rafael Nunes;rafael@fennickreed.com;650.555.0143;CEO;Y;11/04/2024 10:00
+1017;ACC-0015;Rafael  Nunes;Rafael@FennickReed.com;650.555.0143;Chief Executive;N;20/02/2023 10:00
+1018;ACC-0016;Gideon Pryce;gideon@merrowindcompany.com;(949) 555-0116;President;Y;07/07/2024 07:07
+1019;ACC-0020;Harriet Okoro;harriet.okoro@quarrowmills.com;(570) 555-0101;Regional Manager;Y;14/03/2024 12:00
+1020;ACC-0020;Anselm Dorsey;anselm@quarrowmills.com;(570) 555-0102;Purchasing Coordinator;Y;14/03/2024 12:05
+1021;ACC-0021;Marisol;marisol@ferncastle.co.uk;+44 20 7946 0012;Account Manager;N;01/12/2023 09:00
+1022;ACC-0022;Toby Lockwood;toby@tumbleford.co.uk;+44 161 496 0124;Managing Director;Y;31/10/2024 15:00
+1023;ACC-0023;Nadia Ferro;nadia@glimmerhorninc.com;(818) 555-0171;Head of Sales;Y;31/10/2024 23:59
+1024;ACC-0024;Kenji Arakawa;arakawa@tsurugane.co.jp;+81 3 5555 0102;President;N;24/12/2023 20:00
+1025;ACC-0026;Gareth Pollard;mr.pollard@tidewellkitchen.com;(808) 555-0103;Owner;Y;15/08/2024 09:30
+1026;ACC-0029;Priya Raman;priya.raman@sarvantapartners.in;+91 80 5550 0262;Delivery Head;Y;17/05/2024 11:11
+1027;ACC-0030;Edwin Carrow;edwin@lumivalescience.com;(425) 555-0194;CEO;Y;not recorded
+1028;ACC-0011;Leah Brandt;leah.brandt@halvorn.io;12;Consultant;N;01/06/2024 10:00
+1029;ACC-0018;Arjun Desai;arjun.desai@vindharasteeldist.in;+91 22 5550 8283;Sales Director;Y;12/12/2023 12:12
+1030;ACC-0014;Orphaned Rep;rep@example.com;(305) 555-0191;Sales;N;01/03/2024 09:00

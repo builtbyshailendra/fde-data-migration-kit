@@ -1,0 +1,31 @@
+Account ID,Account Name,Industry,Country,Phone,Website,Annual Revenue,Created Date,Active,Account Owner
+ACC-0001,Corvane Corporation,Manufacturing,United States,(415) 555-0132,https://www.corvane-corp.com/,"$12,450,000.00",2016-03-14,Yes,M. Alvarez
+ACC-0002,Brackwell Ltd,Technology,UK,+44 20 7946 0958,brackwell.co.uk,"£3,200,000",14-Mar-2017,Y,R. Patel
+ACC-0003,Velquist,Tech,USA,415.555.0199,http://velquist.com,"850,000",2018/07/01,TRUE,M. Alvarez
+ACC-0004,Lindqvar Health GmbH,Healthcare,Deutschland,+49 30 555820,www.lindqvar-health.de,"1.234.500,00 €",03 Feb 2019,1,K. Schmidt
+ACC-0005,  Dravenmoor Logistics  ,Logistics,U.S.,(212) 555-0147,dravenmoorlogistics.com,"4,100,000.00",Feb 11 2019,yes,R. Patel
+acc-0006,Pellham Retail,Retail,United States,212-555-0188,https://pellham-retail.com,N/A,2019-05-30,Yes,
+ACC-0007,Marrowby Foods,Food & Beverage,USA,(312) 555-0110,marrowbyfoods.com,"2,750,000",2019-06-12,No,K. Schmidt
+ACC-0008,Ovalyn,IT,USA,650-555-0101,https://ovalyn.com/,"98,000,000",2015-01-20,Y,M. Alvarez
+ACC-0009,Kestrane Industries,Import/Export,United States,(718) 555-0123,kestrane.com,"1,500,000",07-Sep-2020,Y,R. Patel
+ACC-0010,Sabrelin Biotech,Healthcare,USA,415 555 0177,sabrelinbio.com,TBD,2020-10-02,Y,K. Schmidt
+ACC-0011,Halvorn Systems,Technology,United States,(408) 555-0166,halvorn.io,"22,000,000",2014-08-29,Y,M. Alvarez
+ACC-0012,Coralline Air,Travel,Australia,+61 2 5550 4000,coralline-air.com.au,"7,800,000",2017/11/23,Y,R. Patel
+ACC-0013,Nolvane Dynamic,Technology,USA,(617) 555-0154,nolvanedynamic.com,"(250,000)",2021-02-14,Y,K. Schmidt
+ACC-0014,,Retail,USA,(305) 555-0190,,"300,000",2021-03-01,N,
+ACC-0015,Fennick Reed Inc.,Tech,United States,650.555.0142,fennickreed.com,"1,200,000",Mar 05 2021,Y,M. Alvarez
+ACC-0016,Merrowind Company,Real Estate,USA,(949) 555-0115,merrowindcompany.com,"5,600,000",2016-09-09,no,R. Patel
+ACC-0017,Larkspire Worldwide,Entertainment,US,(213) 555-0182,larkspireworldwide.com,"75,000",2022-04-18,Y,K. Schmidt
+ACC-0018,Vindhara Steel Distribution,Manufacturing,India,+91 22 5550 8282,vindharasteeldist.in,"₹8,40,00,000",2018-12-12,Y,S. Iyer
+ACC-0019,CORVANE Corp.,Manufacturing,USA,415-555-0132,corvane-corp.com,"12,450,000",2016-03-14,Y,M. Alvarez
+ACC-0020,Quarrow Mills,Paper,USA,(570) 555-0100,quarrowmills.com,"3,400,000",2013-04-01,Y,R. Patel
+ACC-0021,Ferncastle Holdings,Finance,United Kingdom,+44 20 7946 0011,ferncastle.co.uk,"45,000,000",2012-06-30,Y,R. Patel
+ACC-0022,Tumbleford Confectionery,Food & Beverage,UK,+44 161 496 0123,tumbleford.co.uk,"6,250,000",31-Jan-2018,Y,K. Schmidt
+ACC-0023,Glimmerhorn Inc,Entertainment,USA,(818) 555-0170,glimmerhorninc.com,"9,900,000",2019-10-31,Y,M. Alvarez
+ACC-0024,Tsurugane Trading,Finance,Japan,+81 3 5555 0101,tsurugane.co.jp,"31,000,000",2015-12-24,Y,S. Iyer
+ACC-0025,Grisdale Brewing,Food & Beverage,Brevonia,(503) 555-0139,grisdalebeer.com,"2,100,000",2020-07-04,Y,R. Patel
+ACC-0026,Tidewell Kitchen,Food & Beverage,USA,(808) 555-0102,tidewellkitchen.com,"640,000",2021-08-15,Y,K. Schmidt
+ACC-0003,Velquist LLC,Technology,USA,(415) 555-0199,velquist.com,"850,000",2018-07-01,Y,M. Alvarez
+ACC-0028,Dravenmoor Logistics Inc,Logistics,USA,212.555.0147,www.dravenmoorlogistics.com,"4,100,000",2019-02-11,Y,R. Patel
+ACC-0029,Sarvanta Partners,Technology,India,+91 80 5550 0261,sarvantapartners.in,"12,000,000",2017-05-17,Y,S. Iyer
+ACC-0030,Lumivale Science,Technology,USA,(425) 555-0193,lumivalescience.com,"18,500,000",NULL,Y,M. Alvarez

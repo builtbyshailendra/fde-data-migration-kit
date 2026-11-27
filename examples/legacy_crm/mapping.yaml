@@ -1,0 +1,181 @@
+# Legacy CRM (accounts, contacts) and FinanceDesk (invoices) -> new platform schema.
+# Paths are relative to this file. Run: migkit plan --mapping examples/legacy_crm/mapping.yaml
+version: 1
+name: legacy-crm-to-platform
+
+# Placeholders the customer's staff typed instead of leaving a cell empty.
+null_values: ["", "N/A", "n/a", "NULL", "null", "-", "--", "none", "TBC"]
+
+# Tried in order. The accounts export mixes ISO, US and spelled-out dates.
+date_formats:
+  - "%Y-%m-%d"
+  - "%Y-%m-%d %H:%M:%S"
+  - "%Y/%m/%d"
+  - "%d-%b-%Y"
+  - "%d %b %Y"
+  - "%b %d %Y"
+
+sources:
+  accounts:
+    path: accounts.csv
+  contacts:
+    path: contacts.csv          # cp1252, semicolon separated; both are detected
+  invoices:
+    path: invoices.xlsx
+    sheet: Invoices             # the first sheet is a cover page
+
+lookups:
+  countries:
+    path: lookups/countries.csv
+    key: name
+    value: iso2
+
+targets:
+  - table: customers
+    source: accounts
+    key: customer_id
+    fields:
+      - name: customer_id
+        from: Account ID
+        transforms: [upper]
+        pattern: 'ACC-\d{4}'
+      - name: name
+        from: Account Name
+        transforms: [collapse_whitespace]
+        required: true
+        max_length: 120
+      - name: industry
+        from: Industry
+        transforms: [lower]
+        value_map:
+          tech: technology
+          it: technology
+          food & beverage: food_and_beverage
+          real estate: real_estate
+          import/export: wholesale
+          paper: wholesale
+        allowed: [manufacturing, technology, healthcare, logistics, retail, food_and_beverage,
+                  real_estate, entertainment, finance, travel, wholesale]
+      - name: country_code
+        from: Country
+        lookup: {table: countries, on_missing: reject}
+        required: true
+      - name: phone
+        from: Phone
+        transforms: [{phone_e164: "1"}]
+      - name: website
+        from: Website
+        transforms: [lower, {regex_replace: ['^(https?://)?(www[.])?', '']}, {regex_replace: ["/+$", ""]}]
+      - name: annual_revenue
+        from: Annual Revenue
+        type: decimal
+        min: 0
+        reconcile_sum: true
+      - name: created_on
+        from: Created Date
+        type: date
+      - name: is_active
+        from: Active
+        type: boolean
+        default: false
+      - name: owner
+        from: Account Owner
+    dedupe:
+      block_on: [website, phone]
+      threshold: 85
+      survivor: most_complete
+      fields:
+        - {name: name, weight: 2, method: token_sort, strip_suffixes: true}
+        - {name: website, weight: 1, method: exact}
+        - {name: phone, weight: 1, method: exact}
+
+  - table: contacts
+    source: contacts
+    key: contact_id
+    fields:
+      - name: contact_id
+        from: Contact ID
+        type: integer
+      - name: customer_id
+        from: Account ID
+        transforms: [upper]
+        references: customers.customer_id
+        required: true
+      - name: first_name
+        split: {column: Full Name, sep: " ", maxsplit: 1, from_right: true, index: 0}
+        transforms: [collapse_whitespace, title]
+        required: true
+      - name: last_name
+        split: {column: Full Name, sep: " ", maxsplit: 1, from_right: true, index: 1}
+        transforms: [title]
+      - name: email
+        from: E-mail
+        transforms: [lower]
+        required: true
+        pattern: "[a-z0-9._%+'-]+@[a-z0-9.-]+[.][a-z]{2,}"
+      - name: phone
+        from: Phone
+        transforms: [{phone_e164: "1"}]
+      - name: job_title
+        from: Title
+        max_length: 60
+      - name: marketing_opt_in
+        from: Opt In
+        type: boolean
+        default: false
+      - name: updated_at
+        from: Last Modified
+        type: datetime
+        formats: ["%d/%m/%Y %H:%M"]
+    dedupe:
+      block_on: [email]
+      threshold: 85
+      survivor: "latest:updated_at"
+      fields:
+        - {name: email, weight: 2, method: exact}
+        - {name: first_name, weight: 1, method: ratio}
+        - {name: last_name, weight: 1, method: ratio}
+
+  - table: invoices
+    source: invoices
+    key: invoice_number
+    fields:
+      - name: invoice_number
+        from: "Invoice #"
+        transforms: [upper]
+      - name: customer_id
+        from: Customer
+        transforms: [upper]
+        references: customers.customer_id
+        required: true
+      - name: issued_on
+        from: Invoice Date
+        type: date
+        required: true
+      - name: due_on
+        from: Due Date
+        type: date
+      - name: amount
+        from: Amount
+        type: decimal
+        required: true
+        reconcile_sum: true
+      - name: currency
+        from: Currency
+        transforms: [upper]
+        allowed: [USD, GBP, EUR, INR]
+        default: USD
+      - name: status
+        from: Status
+        transforms: [lower]
+        value_map:
+          pd: paid
+          outstanding: open
+          cancelled: void
+        allowed: [paid, open, void]
+      - name: notes
+        from: Notes
+    row_checks:
+      - {left: due_on, op: ">=", right: issued_on, message: "due date is before the invoice date"}
+    # Amounts are in several currencies, so totals are reconciled per currency.
+    reconcile_by: currency

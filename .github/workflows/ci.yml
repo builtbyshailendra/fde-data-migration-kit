@@ -1,0 +1,112 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -e ".[dev]"
+      - run: ruff check .
+      - run: ruff format --check .
+
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - run: pip install -e ".[dev]"
+      - run: pytest -q --cov=migkit --cov-report=term-missing --cov-report=xml
+      - name: Quickstart smoke test
+        run: |
+          migkit validate -m examples/legacy_crm/mapping.yaml --rejects out/rejects.csv
+          migkit load -m examples/legacy_crm/mapping.yaml --db sqlite:///out/target.db
+          migkit reconcile -m examples/legacy_crm/mapping.yaml --db sqlite:///out/target.db --report out/reconciliation.md
+      - uses: actions/upload-artifact@v4
+        if: matrix.python-version == '3.12'
+        with:
+          name: reconciliation-report
+          path: out/reconciliation.md
+
+  postgres:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          # Disposable CI database: trust auth, no password.
+          POSTGRES_HOST_AUTH_METHOD: trust
+          POSTGRES_DB: migkit
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      MIGKIT_TEST_POSTGRES_URL: postgresql+psycopg://postgres@localhost:5432/migkit
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -e ".[dev,postgres]"
+      # -rs lists skips; the grep fails the job if the PostgreSQL test was skipped.
+      - name: PostgreSQL round trip test
+        run: |
+          pytest -v -rs tests/test_postgres.py | tee pg-test.log
+          grep -q "test_sample_round_trip_on_postgres PASSED" pg-test.log
+      - name: CLI against PostgreSQL
+        run: |
+          migkit load -m examples/legacy_crm/mapping.yaml --db "$MIGKIT_TEST_POSTGRES_URL"
+          migkit reconcile -m examples/legacy_crm/mapping.yaml --db "$MIGKIT_TEST_POSTGRES_URL"
+
+  build:
+    runs-on: ubuntu-latest
+    needs: [lint, test]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install build
+      - run: python -m build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+      - uses: docker/setup-buildx-action@v3
+      - name: Build image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: false
+          load: true
+          tags: fde-data-migration-kit:ci
+      - name: Image smoke test
+        run: |
+          docker run --rm fde-data-migration-kit:ci --version
+          docker run --rm fde-data-migration-kit:ci validate -m /opt/migkit/examples/legacy_crm/mapping.yaml
