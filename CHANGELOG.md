@@ -4,7 +4,7 @@ All notable changes to this project are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses
 [Semantic Versioning](https://semver.org/).
 
-## [0.1.0] - 2026-11-08
+## 0.1.0 - 2026-11-08 (not tagged as a release yet)
 
 ### Added
 
@@ -46,4 +46,3 @@ All notable changes to this project are documented here. The format follows
   line they start on and Excel records by worksheet row. Unterminated quotes
   are an error instead of swallowing the rest of the file.
 
-[0.1.0]: https://github.com/builtbyshailendra/fde-data-migration-kit/releases/tag/v0.1.0
