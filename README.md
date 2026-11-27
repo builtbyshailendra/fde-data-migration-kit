@@ -2,6 +2,7 @@
 
 > Personal learning project, built pairing with Claude Code. Every company, person and number here is made up.
 
+[![ci](https://github.com/builtbyshailendra/fde-data-migration-kit/actions/workflows/ci.yml/badge.svg)](https://github.com/builtbyshailendra/fde-data-migration-kit/actions/workflows/ci.yml)
 ![python](https://img.shields.io/badge/python-3.12%2B-blue)
 ![license](https://img.shields.io/badge/license-MIT-green)
 
